@@ -1,0 +1,23 @@
+<?php
+    $symbol = urlencode($_GET['stock_symbol']);
+    $url = "http://download.finance.yahoo.com/d/quotes.csv?s=".$symbol."&f=sl1d1t1c1ohgv&e=.csv";
+    $handle = fopen($url, "r");
+    $row = fgetcsv($handle);
+    fclose($handle);
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stocks</title>
+  </head>
+  <body>
+    <center><h1>Stock prices</h1></center>
+    <form action = 'quote.php' method='GET'>
+      <input type='text' name='stock_symbol' placeholder="Enter symbol">
+      <input type='submit' value='Search'>
+    </form>
+    
+    <center><h3><?= $symbol ?> : <?= $row[1] ?></h3></center>
+  
+  </body>
+</html>
